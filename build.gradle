@@ -1,0 +1,58 @@
+
+
+
+plugins {
+    // Apply the application plugin to add support for building a CLI application in Java.
+    
+	id 'application'
+	id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+
+repositories {
+    // Use Maven Central for resolving dependencies.
+    mavenCentral()
+}
+
+dependencies {
+    
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
+
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    
+    implementation 'com.google.guava:guava:32.1.1-jre'
+	
+	implementation fileTree(dir: 'libs', include: ['*.jar'])
+}
+
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(20)
+    }
+}
+
+
+sourceSets{
+	main{
+		java{
+			srcDirs 'app'
+		}
+	}
+}
+
+
+
+shadowJar {
+	
+	archiveFileName = 'nullUpdater.jar'
+	
+	mainClassName = 'nullBit.offsetupdater.Main'
+	
+	exclude 'META-INF/*.DSA', 'META-INF/*.RSA', 'META-INF/*.SF'
+}
+
+tasks.named('test') {
+    // Use JUnit Platform for unit tests.
+    useJUnitPlatform()
+}
