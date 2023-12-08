@@ -37,7 +37,7 @@ public class NullPattern
     	if(mode == 0)
     		addition = 0;
     	else if(mode > 0) {
-    		addition = 0x4 * (int)Math.pow(2, mode+5);
+    		addition = 0x4 * (int)Math.pow(2, mode+2);
     	}
     	else {
     		addition = 0x4 * mode;
