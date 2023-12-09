@@ -79,10 +79,11 @@ public class Main{
     	
     	if(oldData.length >= Utils.getINTMAX() || newData.length >= Utils.getINTMAX())
     		System.out.println("[NullLog] WARNING data bigger than this tool can handle (will be updated soon) might work faulty or not at all!");
-    	int maxOffsets;
+    	int maxOffsets = 1;
     	try {
     		System.out.print("How many offsets should max be found?: ");
     		maxOffsets = inpGetter.nextInt();
+		inpGetter.nextLine()
     	} catch (InputMismatchException e) {
     		maxOffsets = 1;
     		inpGetter.nextLine();
