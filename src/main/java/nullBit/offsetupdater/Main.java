@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 //user
@@ -78,16 +79,23 @@ public class Main{
     	
     	if(oldData.length >= Utils.getINTMAX() || newData.length >= Utils.getINTMAX())
     		System.out.println("[NullLog] WARNING data bigger than this tool can handle (will be updated soon) might work faulty or not at all!");
+    	int maxOffsets;
+    	try {
+    		System.out.print("How many offsets should max be found?: ");
+    		maxOffsets = inpGetter.nextInt();
+    	} catch (InputMismatchException e) {
+    		maxOffsets = 1;
+    		inpGetter.nextLine();
+    	}
+    	System.out.print("Want patterns to be written to out.txt? [1]yes [defualt]no: ");
+    	String writePatternStr = inpGetter.nextLine();
+    	int writePattern;
+    	if(!writePatternStr.trim().equals("1"))
+    		writePattern = 0;
+    	else 
+    		writePattern = 1;
     	
     	
-    	System.out.print("How many offsets should max be found?: ");
-    	
-    	
-    	int maxOffsets = inpGetter.nextInt();
-    	
-    	System.out.print("Want patterns to be written to out.txt? [1]yes [default]no: ");
-    	int writePattern = inpGetter.nextInt();
-        
     	String newPath = workingDir + "/out.txt";
     	
     	try {
@@ -128,18 +136,18 @@ public class Main{
         	            
         	            BufferedWriter writer = new BufferedWriter(new FileWriter(newPath, true));
         	            writer.write("Old: " + "0x" + Integer.toHexString(offsets[i]).toUpperCase() + " New: ");
-        	            for(int j = 0; j < newOffsets.size(); j++) {
-        
-	        	            if(writePattern == 1) {
-	        	            	writer.write(newOffsets.get(j) + "");
-		        	            writer.newLine();
-		        	            writer.write("Pattern: " + Utils.getPatternString(pattern));
-	        	            }
-		        	        writer.newLine();
-	        	            writer.write("-------------------------------");
-	        	            writer.newLine();
-	        	            writer.close();
-        	            }   
+        	            for(int j = 0; j < newOffsets.size(); j++) 
+	    	            	writer.write(newOffsets.get(j) + " ");
+        	            
+        	            
+        	            if(writePattern == 1) {
+        	            	writer.newLine();
+        	            	writer.write("Pattern: " + Utils.getPatternString(pattern));
+        	            }
+        	            writer.newLine();
+        	            writer.write("-------------------------------");
+        	            writer.newLine();
+        	            writer.close();
         	            System.out.println("[NullLog] Finished successfully wrote offsets into out.txt");
 
         	        } catch (IOException e) {
