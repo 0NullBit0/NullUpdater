@@ -22,7 +22,7 @@ public class Main{
     private static NullPattern nullMain;
     private static int[] offsets;
     
-    public static void main(String[] argv){
+    public static void main(String[] argv) {
         
         System.out.print("\033[H\033[2J");  
         System.out.flush();
