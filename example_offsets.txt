@@ -1,6 +1,0 @@
-#how your offsets.txt might look hashtag at start will ignore the line
-0x12345
-0xDEAD
-0xFED
-0xACE
-0xFFFF
